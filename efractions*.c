@@ -1,82 +1,59 @@
 #include<stdio.h>
-#include<math.h>
+struct efrac
+{
+	int den;
+};
 struct fraction
 {
 	int num,den;
 };
-int input(struct fraction *f)
+void input(int n,struct efrac a[])
 {
-	printf("Enter the numerrator");
-	scanf("%d",&f->num);
-	printf("Enter the denominator");
-	scanf("%d",&f->den);
-}
-struct fraction subtract(struct fraction f,struct fraction a)
-{
-	struct fraction f1;
-	f1.den=((f.den)*(a.den));
-	f1.num=((f.num)*(a.den))-((a.num)*(f.den));
-	return f1;
-}
-
-struct fraction compute(struct fraction f,int *d,struct fraction c[])
-{
-	struct fraction f1,z;
-	f1=f;
-	double a;
-	a=(double)(f.den)/(double)(f.num);
-	int b;
-	b=ceil(a);
-	d=0;
-	c[*d].num=1;
-	c[*d].den=b;
-	z.num=f1.num;
-	z.den=f1.den;
-	struct fraction f2=subtract(f1,z);
-	while(b!=0)
+	for(int i=0;i<n;i++)
 	{
-		++d;
-		if(f1.num==1)
+		printf("Enter denominator of egyptian fraction %d",i+1);
+		scanf("%d",&a[i].den);
+	}
+}
+struct fraction compute(int n,struct efrac a[])
+{
+	struct fraction f;
+	f.num=0;
+	f.den=1;
+	for(int i=0;i<n;i++)
+	{
+		f.den=f.den*a[i].den;
+	}
+	for(int i=0;i<n;i++)
+	{
+		f.num=f.num+(f.den)/(a[i].den);
+	}
+	int s;
+	s=f.den;
+	for(int i=1;i<=s;i++)
+	{
+		if((f.num%i==0)&&(f.den%i==0))
 		{
-		c[*d].num=f2.num;
-		c[*d].den=f2.den;
-		z.num=f2.num;
-		z.den=f2.den;
-		break;
+			f.num=f.num/i;
+			f.den=f.den/i;
+		}
 	}
-	else
-	{
-	a=(double)(f2.den)/(double)(f2.num);
-	int b;
-	b=ceil(a);
-	c[*d].num=1;
-	c[*d].den=b;
-	z.num=1;
-	z.den=b;
-	struct fraction f3=(f2,z); 
-	}
-	}
-
+	return f;
 }
-void output(int d,struct fraction c[],struct fraction f)
+void output(struct fraction f)
 {
-	printf("%d/%d=",f.num,f.den);
-	for(int i=0;i<d;i++)
-	{
-		int m,n;
-		m=c[i].num;
-		n=c[i].den;
-		printf("%d/%d +",m,n);
-	}
+	printf("%d/%d",f.num,f.den);
 }
-void main()
+int main()
 {
-	struct fraction f;int d;
-	input(&f);
-	struct fraction c[100];
-	compute(f,&d,c);
-	output(d,c,f);
+	int n;
+	printf("enter the no.of egyptian fractions");
+	scanf("%d",&n);
+	struct efrac a[n];
+	struct fraction f;
+	input(n,a);
+	f=compute(n,a);
+	output(f);
+	return 0;
 }
-
-
 
