@@ -1,11 +1,14 @@
 #include<stdio.h>
 #include<math.h>
-struct coordinate
+struct point
 {
-float x,y;
+	float x,y;
 };
-
-void input(struct coordinate a[])
+struct rectangle
+{
+	float d1,d2,d3,area;
+};
+void input(struct point a[])
 {
 	for(int i=0;i<3;i++)
 	{
@@ -15,28 +18,37 @@ void input(struct coordinate a[])
 		scanf("%f",&a[i].y);
 	}
 }
-float compute(struct coordinate a[])
+struct rectangle get_distances(struct point a[])
 {
-	float d1,d2,d3,area;
-	d1=sqrt(pow((a[1].y-a[0].y),2)+pow((a[1].x-a[0].x),2));
-	d2=sqrt(pow((a[2].y-a[1].y),2)+pow((a[2].x-a[1].x),2));
-	d3=sqrt(pow((a[2].y-a[0].y),2)+pow((a[2].x-a[0].x),2));
-	if((d1>d2)&&(d1>d3))
-	area=d2*d3;
-	if((d2>d1)&&(d2>d3))
-	area=d1*d3;
-	if((d3>d1)&&(d3>d2))
-	area=d1*d2;
-	return area;
+	struct rectangle d;
+	d.d1=sqrt(pow((a[1].y-a[0].y),2)+pow((a[1].x-a[0].x),2));
+	d.d2=sqrt(pow((a[2].y-a[1].y),2)+pow((a[2].x-a[1].x),2));
+	d.d3=sqrt(pow((a[2].y-a[0].y),2)+pow((a[2].x-a[0].x),2));
+	return d;
 }
-void output(float area)
+struct rectangle get_area(struct rectangle *d)
 {
-	printf("Area of the rectangle=%f",area);
+	float d1,d2,d3;
+	d1=d->d1;
+	d2=d->d2;
+	d3=d->d3;
+	if((d1>d2)&&(d1>d3))
+		d->area=d2*d3;
+	if((d2>d1)&&(d2>d3))
+		d->area=d1*d3;
+	if((d3>d1)&&(d3>d2))
+		d->area=d1*d2;
+}
+void output(struct rectangle d)
+{
+	printf("Area of the rectangle=%f",d.area);
 }
 void main()
 {
-	struct coordinate a[3];float area;
+	struct point a[3];
+	struct rectangle d;
 	input(a);
-	area=compute(a);
-output(area);
+	d=get_distances(a);
+	get_area(&d);
+	output(d);
 }
