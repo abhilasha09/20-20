@@ -18,7 +18,7 @@ struct rectangles get_instance()
 {
     struct rectangles r1;
     printf("Enter no of rectangles");
-    scanf("%d",r1.n);
+    scanf("%d",&r1.n);
     return r1;
 }
 struct rectangles input(struct rectangles r1)
@@ -76,10 +76,6 @@ void output(struct rectangles r1)
 	printf("Area of ");
 	for(int i=0;i<r1.n;i++)
 	{
-	    for(int j=0;j<3;i++)
-	    {
-	        printf("(%f,%f)",r1.r[i].p[j].x,r1.r[i].p[j].y);
-        }
         printf("%f",r1.r[i].area);
 	}
 }
