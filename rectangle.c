@@ -52,11 +52,11 @@ void main()
 	scanf("%d",&n);
 	for(int i=0;i<n;i++)
 	{
-	printf("Enter the coordinates of points of rectangle%d\n",i+1);
-	input(a);
-	d=get_distances(a);
-	get_area(&d);
-	printf("The area of rectangle%d:",i+1);
-	output(d);
+		printf("Enter the coordinates of points of rectangle%d\n",i+1);
+		input(a);
+		d=get_distances(a);
+		get_area(&d);
+		printf("The area of rectangle%d:",i+1);
+		output(d);
 	}
 }
