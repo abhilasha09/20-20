@@ -14,68 +14,82 @@ struct rectangles
 	int n;
 	struct rectangle r[100];
 };	
-struct rectangle input(struct rectangle r)
+void get_instance(struct rectangles *r1)
 {
-	for(int i=0;i<3;i++)
-	{
-		printf("Enter x%d",i+1);
-		scanf("%f",&r.p[i].x);
-		printf("Enter y%d",i+1);
-		scanf("%f",&r.p[i].y);
-	}
-return r;
+    printf("Enter no of rectangles");
+    scanf("%d",r1->n);
 }
-
-	
-
-struct rectangle get_distances(struct rectangle d)
+struct rectangles input(struct rectangles r1)
+{
+	for(int j=0;j<r1.n;j++)
+	{
+	    for(int i=0;i<3;i++)
+	    {
+		    printf("Enter x%d",i+1);
+		    scanf("%f",&r1.r[j].p[i].x);
+		    printf("Enter y%d",i+1);
+	    	scanf("%f",&r1.r[j].p[i].y);
+	    }
+	}
+return r1;
+}
+struct rectangles get_distances(struct rectangles r1)
 {
 	float d1,d2,d3;
-	d1=sqrt(pow((d.p[1].y-d.p[0].y),2)+pow((d.p[1].x-d.p[0].x),2));
-	d2=sqrt(pow((d.p[2].y-d.p[1].y),2)+pow((d.p[2].x-d.p[1].x),2));
-	d3=sqrt(pow((d.p[2].y-d.p[0].y),2)+pow((d.p[2].x-d.p[0].x),2));
+	for(int i=0;i<r1.n;i++)
+	{
+	d1=sqrt(pow((r1.r[i].p[1].y-r1.r[i].p[0].y),2)+pow((r1.r[i].p[1].x-r1.r[i].p[0].x),2));
+	d2=sqrt(pow((r1.r[i].p[2].y-r1.r[i].p[1].y),2)+pow((r1.r[i].p[2].x-r1.r[i].p[1].x),2));
+	d3=sqrt(pow((r1.r[i].p[2].y-r1.r[i].p[0].y),2)+pow((r1.r[i].p[2].x-r1.r[i].p[0].x),2));
 	if((d1>d2)&&(d1>d3))
 	{
-		d.l=d2;
-		d.b=d3;
+		r1.r[i].l=d2;
+		r1.r[i].b=d3;
 	}
 	if((d2>d1)&&(d2>d3))
 	{
-		d.l=d1;
-		d.b=d3;	
+		r1.r[i].l=d1;
+		r1.r[i].b=d3;	
 	}
 	if((d3>d1)&&(d3>d2))
 	{
-		d.l=d1;
-		d.b=d2;
+		r1.r[i].l=d1;
+		r1.r[i].b=d2;
 	}
-	return d;
+	return r1;
+	}
 	
 }
 
-struct rectangle get_area(struct rectangle d)
+struct rectangles get_area(struct rectangles r1)
 {
-	d.area=(d.l)*(d.b);
-	return d;
+	for(int i=0;i<r1.n;i++)
+	{
+	r1.r[i].area=(r1.r[i].l)*(r1.r[i].b);
+	return r1;
+    }
 }
-void output(struct rectangle d)
+void output(struct rectangles r1)
 {
-	printf("%f\n",d.area);
+	printf("Area of ");
+	for(int i=0;i<r1.n;i++)
+	{
+	    for(int j=0;j<3;i++)
+	    {
+	        printf("(%f,%f)",r1.r[i].p[j].x,r1.r[i].p[j].y);
+        }
+        printf("%f",r1.r[i].area);
+	}
 }
 void main()
 {
 	
-	struct rectangle d;
+	struct rectangles r1;
+	get_instance(&r1);
+	r1=input(r1);
+	r1=get_distances(r1);
+	r1=get_area(r1);
+	output(r1);
 	
-	int n;
-	printf("Enter the n");
-	scanf("%d",&n);
-	d=input(d);
-	d=get_distances(d);
-	printf("%f",d.l);
-	printf("%f",d.b);
-	d=get_area(d);
-	printf("The area of rectangle:");
-	output(d);
 	
 }
