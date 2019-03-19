@@ -14,10 +14,12 @@ struct rectangles
 	int n;
 	struct rectangle r[100];
 };	
-void get_instance(struct rectangles *r1)
+struct rectangles get_instance()
 {
+    struct rectangles r1;
     printf("Enter no of rectangles");
-    scanf("%d",r1->n);
+    scanf("%d",r1.n);
+    return r1;
 }
 struct rectangles input(struct rectangles r1)
 {
@@ -85,7 +87,7 @@ void main()
 {
 	
 	struct rectangles r1;
-	get_instance(&r1);
+	r1=get_instance();
 	r1=input(r1);
 	r1=get_distances(r1);
 	r1=get_area(r1);
