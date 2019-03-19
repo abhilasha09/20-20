@@ -41,14 +41,20 @@ struct rectangle get_area(struct rectangle *d)
 }
 void output(struct rectangle d)
 {
-	printf("Area of the rectangle=%f",d.area);
+	printf("Area of the rectangle=%f\n",d.area);
 }
 void main()
 {
 	struct point a[3];
 	struct rectangle d;
+	int n;
+	printf("Enter the number of rectangles you want to find area for:");
+	scanf("%d",&n);
+	for(int i=0;i<n;i++)
+	{
 	input(a);
 	d=get_distances(a);
 	get_area(&d);
 	output(d);
+	}
 }
