@@ -6,38 +6,57 @@ struct point
 };
 struct rectangle
 {
-	float d1,d2,d3,area;
+	struct point p[3];
+	float l,b,area;
 };
-void input(struct point a[])
+struct rectangles
+{
+	int n;
+	struct rectangle r[100];
+};	
+struct rectangle input(struct rectangle r)
 {
 	for(int i=0;i<3;i++)
 	{
 		printf("Enter x%d",i+1);
-		scanf("%f",&a[i].x);
+		scanf("%f",&r.p[i].x);
 		printf("Enter y%d",i+1);
-		scanf("%f",&a[i].y);
+		scanf("%f",&r.p[i].y);
 	}
+return r;
 }
-struct rectangle get_distances(struct point a[])
-{
-	struct rectangle d;
-	d.d1=sqrt(pow((a[1].y-a[0].y),2)+pow((a[1].x-a[0].x),2));
-	d.d2=sqrt(pow((a[2].y-a[1].y),2)+pow((a[2].x-a[1].x),2));
-	d.d3=sqrt(pow((a[2].y-a[0].y),2)+pow((a[2].x-a[0].x),2));
-	return d;
-}
-struct rectangle get_area(struct rectangle *d)
+
+	
+
+struct rectangle get_distances(struct rectangle d)
 {
 	float d1,d2,d3;
-	d1=d->d1;
-	d2=d->d2;
-	d3=d->d3;
+	d1=sqrt(pow((d.p[1].y-d.p[0].y),2)+pow((d.p[1].x-d.p[0].x),2));
+	d2=sqrt(pow((d.p[2].y-d.p[1].y),2)+pow((d.p[2].x-d.p[1].x),2));
+	d3=sqrt(pow((d.p[2].y-d.p[0].y),2)+pow((d.p[2].x-d.p[0].x),2));
 	if((d1>d2)&&(d1>d3))
-		d->area=d2*d3;
+	{
+		d.l=d2;
+		d.b=d3;
+	}
 	if((d2>d1)&&(d2>d3))
-		d->area=d1*d3;
+	{
+		d.l=d1;
+		d.b=d3;	
+	}
 	if((d3>d1)&&(d3>d2))
-		d->area=d1*d2;
+	{
+		d.l=d1;
+		d.b=d2;
+	}
+	return d;
+	
+}
+
+struct rectangle get_area(struct rectangle d)
+{
+	d.area=(d.l)*(d.b);
+	return d;
 }
 void output(struct rectangle d)
 {
@@ -45,18 +64,18 @@ void output(struct rectangle d)
 }
 void main()
 {
-	struct point a[3];
+	
 	struct rectangle d;
+	
 	int n;
-	printf("Enter the number of rectangles you want to find area for:");
+	printf("Enter the n");
 	scanf("%d",&n);
-	for(int i=0;i<n;i++)
-	{
-		printf("Enter the coordinates of points of rectangle%d\n",i+1);
-		input(a);
-		d=get_distances(a);
-		get_area(&d);
-		printf("The area of rectangle%d:",i+1);
-		output(d);
-	}
+	d=input(d);
+	d=get_distances(d);
+	printf("%f",d.l);
+	printf("%f",d.b);
+	d=get_area(d);
+	printf("The area of rectangle:");
+	output(d);
+	
 }
