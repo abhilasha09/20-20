@@ -56,9 +56,7 @@ void get_distances(struct rectangles *r1)
 		r1->r[i].b=d2;
 	}
 	}
-	
 }
-
 void get_area(struct rectangles *r1)
 {
 	for(int i=0;i<r1->n;i++)
@@ -76,13 +74,10 @@ void output(struct rectangles r1)
 }
 void main()
 {
-	
 	struct rectangles r1;
 	get_instance(&r1);
 	input(&r1);
 	get_distances(&r1);
 	get_area(&r1);
-	output(r1);
-	
-	
+	output(r1);	
 }
