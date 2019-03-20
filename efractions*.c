@@ -1,44 +1,43 @@
 #include<stdio.h>
 struct efrac
 {
-	int den;
+	int den[1000];
 };
 struct fraction
 {
 	int num,den;
 };
-void input(int n,struct efrac a[])
+void input(int n,struct efrac *a)
 {
 	for(int i=0;i<n;i++)
 	{
 		printf("Enter denominator of egyptian fraction %d",i+1);
-		scanf("%d",&a[i].den);
+		scanf("%d",&a->den[i]);
 	}
 }
-struct fraction compute(int n,struct efrac a[])
+void compute(int n,struct efrac a,struct fraction *f)
 {
-	struct fraction f;
-	f.num=0;
-	f.den=1;
+	f->num=0;
+	f->den=1;
 	for(int i=0;i<n;i++)
 	{
-		f.den=f.den*a[i].den;
+		f->den=f->den*a.den[i];
 	}
 	for(int i=0;i<n;i++)
 	{
-		f.num=f.num+(f.den)/(a[i].den);
+		f->num=f->num+(f->den)/(a.den[i]);
 	}
 	int s;
-	s=f.den;
+	s=f->den;
 	for(int i=1;i<=s;i++)
 	{
-		if((f.num%i==0)&&(f.den%i==0))
+		if((f->num%i==0)&&(f->den%i==0))
 		{
-			f.num=f.num/i;
-			f.den=f.den/i;
+			f->num=f->num/i;
+			f->den=f->den/i;
 		}
 	}
-	return f;
+	
 }
 void output(struct fraction f)
 {
@@ -49,11 +48,10 @@ int main()
 	int n;
 	printf("enter the no.of egyptian fractions");
 	scanf("%d",&n);
-	struct efrac a[n];
+	struct efrac a;
 	struct fraction f;
-	input(n,a);
-	f=compute(n,a);
+	input(n,&a);
+    	compute(n,a,&f);
 	output(f);
 	return 0;
 }
-
